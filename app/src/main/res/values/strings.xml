@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">wardrobe</string>
+    <string name="title_slider_1">Nasıl Kullanılır?</string>
+    <string name="description_slider_1">Sağa Kaydır ve Öğren!</string>
+    <string name="title_slider_2">Etkinlikler</string>
+    <string name="description_slider_2">Bu sayfaya en soldaki takvim işaretiyle ulaşabilirsiniz.</string>
+    <string name="title_slider_3">Kabin</string>
+    <string name="description_slider_3">Kabin, farklı kıyafetleri bir arada görmenizi sağlar. İsterseniz kombinlerinizi paylaşabilirsiniz!</string>
+    <string name="title_slider_4">Gardrop</string>
+    <string name="description_slider_4">Gardrop çekmecelerinizi barındıran bir kapsayıcıdır. Çekmecelerinizi kıyafet tiplerine göre özelleştirip, içlerine istediğiniz kıyafetleri koyabilirsiniz.</string>
 </resources>
