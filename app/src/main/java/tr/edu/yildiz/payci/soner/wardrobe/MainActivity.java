@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import tr.edu.yildiz.payci.soner.wardrobe.adapters.ViewPagerAdapter;
 import tr.edu.yildiz.payci.soner.wardrobe.fragments.EventFragment;
+import tr.edu.yildiz.payci.soner.wardrobe.fragments.CabinetFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private Context mContext;
@@ -32,7 +33,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         ArrayList<Fragment> fragList = new ArrayList<>();
         fragList.add(new EventFragment());
-
+        fragList.add(new CabinetFragment());
+        //fragList.add(new WardrobeFragment());
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(fragList, getSupportFragmentManager());
         viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(pagerAdapter);
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 viewPager.setCurrentItem(0);
                 break;
             case R.id.cabinet:
-                viewPager.setCurrentItem(0);
+                viewPager.setCurrentItem(1);
                 break;
             case R.id.wardrobe:
                 viewPager.setCurrentItem(0);

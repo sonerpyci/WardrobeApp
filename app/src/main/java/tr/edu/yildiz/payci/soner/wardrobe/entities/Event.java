@@ -7,6 +7,7 @@ public class Event {
     private int id;
     private String name;
     private String content;
+    private String type;
     private Date date;
     private Location location;
 
@@ -14,12 +15,21 @@ public class Event {
     public Event() {
     }
 
-    public Event(int id, String name, String content, Date date, Location location) {
+    public Event(int id, String name, String content, String type, Date date, Location location) {
         this.id = id;
         this.name = name;
         this.content = content;
+        this.type = type;
         this.location = location;
         this.date = date;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getId() {
