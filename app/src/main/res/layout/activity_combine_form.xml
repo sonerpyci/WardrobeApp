@@ -292,6 +292,7 @@
                 app:cardElevation="6dp">
 
                 <LinearLayout
+                    android:id="@+id/share_combine_btn_inner"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="?android:attr/selectableItemBackground"
@@ -317,6 +318,7 @@
                 app:cardElevation="6dp">
 
                 <LinearLayout
+                    android:id="@+id/save_combine_btn"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="?android:attr/selectableItemBackground"

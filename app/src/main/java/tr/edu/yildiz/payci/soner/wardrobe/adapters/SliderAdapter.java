@@ -32,21 +32,21 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
         switch (position) {
             case 0:
                 Glide.with(viewHolder.itemView)
-                        .load(R.drawable.bolt)
+                        .load(R.drawable.ic_star_turquoise_24dp)
                         .into(viewHolder.imageViewSlider);
                 viewHolder.textViewTitle.setText(context.getResources().getString(R.string.title_slider_1));
                 viewHolder.textViewDescription.setText(context.getResources().getString(R.string.description_slider_1));
                 break;
             case 1:
                 Glide.with(viewHolder.itemView)
-                        .load(R.drawable.bolt)
+                        .load(R.drawable.event)
                         .into(viewHolder.imageViewSlider);
                 viewHolder.textViewTitle.setText(context.getResources().getString(R.string.title_slider_2));
                 viewHolder.textViewDescription.setText(context.getResources().getString(R.string.description_slider_2));
                 break;
             case 2:
                 Glide.with(viewHolder.itemView)
-                        .load(R.drawable.bolt)
+                        .load(R.drawable.cabinet)
                         .into(viewHolder.imageViewSlider);
                 viewHolder.textViewTitle.setText(context.getResources().getString(R.string.title_slider_3));
                 viewHolder.textViewDescription.setText(context.getResources().getString(R.string.description_slider_3));
@@ -54,7 +54,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
             case 3:
                 Glide.with(viewHolder.itemView)
-                        .load(R.drawable.bolt)
+                        .load(R.drawable.wardrobe)
                         .into(viewHolder.imageViewSlider);
                 viewHolder.textViewTitle.setText(context.getResources().getString(R.string.title_slider_4));
                 viewHolder.textViewDescription.setText(context.getResources().getString(R.string.description_slider_4));

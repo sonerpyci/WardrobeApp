@@ -15,12 +15,11 @@ import tr.edu.yildiz.payci.soner.wardrobe.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CabinetFragment extends Fragment {
+public class WardrobeFragment extends Fragment {
     View rootLayout;
-    View newCombineButton;
-    View shareCombineButton;
+    View newDrawerButton;
 
-    public CabinetFragment() {
+    public WardrobeFragment() {
         // Required empty public constructor
     }
 
@@ -29,7 +28,7 @@ public class CabinetFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootLayout = inflater.inflate(R.layout.fragment_cabinet, container, false);
+        rootLayout = inflater.inflate(R.layout.fragment_wardrobe, container, false);
 
         defineElements();
         defineListeners();
@@ -37,18 +36,14 @@ public class CabinetFragment extends Fragment {
     }
 
     public void defineElements() {
-        newCombineButton = rootLayout.findViewById(R.id.new_combine_btn);
-        shareCombineButton = rootLayout.findViewById(R.id.share_combine_btn);
+        newDrawerButton = rootLayout.findViewById(R.id.new_drawer_btn);
+
     }
 
     public void defineListeners() {
-        newCombineButton.setOnClickListener(v -> {
+        newDrawerButton.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), CombineFormActivity.class);
             this.startActivity(intent);
-        });
-
-        shareCombineButton.setOnClickListener(v -> {
-            // TODO : Fill the listener func.
         });
     }
 
