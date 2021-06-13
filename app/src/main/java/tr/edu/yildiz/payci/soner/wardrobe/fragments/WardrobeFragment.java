@@ -72,14 +72,20 @@ public class WardrobeFragment extends Fragment {
         database.getReference().child("drawers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if (mAdapter.getItemCount() > 0) {
+                    drawers = new ArrayList<>();
+                    mAdapter.empty();
+                }
+
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Drawer drawer = postSnapshot.getValue(Drawer.class);
-                    drawers.add(drawer);
+                    mAdapter.addItem(drawer);
                 }
                 for (int i=0; i<drawers.size(); i++)
                 {
                     Log.d("FirebaseRead", "Drawer with Name: " + drawers.get(i).getName());
                 }
+                drawers = mAdapter.getItems();
                 mAdapter.notifyDataSetChanged();
             }
 

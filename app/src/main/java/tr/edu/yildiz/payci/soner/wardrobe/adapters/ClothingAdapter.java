@@ -2,12 +2,14 @@ package tr.edu.yildiz.payci.soner.wardrobe.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,6 +66,26 @@ public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.MyView
             holder.content.setText(String.format("%s bölgesi için. Ücret Bilgisi yok.", item.getType()));
         }
 
+        holder.itemView.setBackgroundColor(item.isSelected() ? Color.CYAN : Color.WHITE);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(v.getContext(), "clicked", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), String.format("clicked successfully."), Toast.LENGTH_SHORT).show();
+                item.setSelected(!item.isSelected());
+                holder.itemView.setBackgroundColor(item.isSelected() ? Color.CYAN : Color.WHITE);
+            }
+        });
+
         if (item.getPhoto() != null) {
 
             StorageReference ref = StorageHelper.getStorageEngine().getReference("photos").child(item.getPhoto().getUid());
@@ -93,6 +115,15 @@ public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.MyView
 
     public ArrayList<Clothing> getItems() {
         return clothes;
+    }
+    public ArrayList<Clothing> getSelectedItems() {
+        ArrayList<Clothing> selectedClothes = new ArrayList<>();
+        for (Clothing clothing: getItems()) {
+            if (clothing.isSelected()) {
+                selectedClothes.add(clothing);
+            }
+        }
+        return selectedClothes;
     }
 
     public void empty() {

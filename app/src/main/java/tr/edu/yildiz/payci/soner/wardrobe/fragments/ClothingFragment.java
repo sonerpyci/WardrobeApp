@@ -82,8 +82,6 @@ public class ClothingFragment extends Fragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Clothing clothing = postSnapshot.getValue(Clothing.class);
                     mAdapter.addItem(clothing);
-
-
                 }
                 for (int i=0; i<clothes.size(); i++)
                 {

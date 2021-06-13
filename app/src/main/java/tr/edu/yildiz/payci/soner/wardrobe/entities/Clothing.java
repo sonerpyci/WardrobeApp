@@ -8,6 +8,7 @@ public class Clothing {
     private String name;
     private double price;
     private Photo photo;
+    private boolean isSelected = false;
 
     public Clothing(String guid, String type, String color, String name, double price, Photo photo) {
         this.guid = guid;
@@ -80,5 +81,13 @@ public class Clothing {
 
     public void setPhoto(Photo photo) {
         this.photo = photo;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

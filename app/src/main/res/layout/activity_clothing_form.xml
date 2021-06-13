@@ -43,8 +43,6 @@
                         android:layout_height="200dp"
                         android:gravity="center"
                         android:elevation="2dp"
-                        android:clickable="true"
-                        android:focusable="true"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:background="@drawable/circle_gray_selector"
                         android:layout_marginBottom="5dp">
@@ -217,8 +215,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
                     android:gravity="center">
 
                     <TextView

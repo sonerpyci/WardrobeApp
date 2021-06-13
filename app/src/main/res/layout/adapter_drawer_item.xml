@@ -12,9 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true">
+        android:background="?android:attr/selectableItemBackground">
 
 
         <RelativeLayout
@@ -52,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/drawer_name"
                 android:layout_marginTop="2dp"
+                android:textColor="@color/darkGray"
                 android:text="Bu çekmecede hiç kıyafet bulunmuyor."
                 android:textSize="14sp"
                 android:maxLines="1"
