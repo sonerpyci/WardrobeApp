@@ -15,4 +15,9 @@
         android:icon="@drawable/wardrobe"
         android:title="Wardrobe" />
 
+    <item
+        android:id="@+id/clothing"
+        android:icon="@drawable/clothing"
+        android:title="Clothing" />
+
 </menu>

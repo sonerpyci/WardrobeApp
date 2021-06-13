@@ -60,15 +60,15 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
                 viewHolder.textViewDescription.setText(context.getResources().getString(R.string.description_slider_4));
                 break;
 
-            /*case 4:
+            case 4:
                 Glide.with(viewHolder.itemView)
-                        .load(R.drawable.bolt)
+                        .load(R.drawable.clothing)
                         .into(viewHolder.imageViewSlider);
                 viewHolder.textViewTitle.setText(context.getResources().getString(R.string.title_slider_5));
                 viewHolder.textViewDescription.setText(context.getResources().getString(R.string.description_slider_5));
                 break;
 
-            case 5:
+            /*case 5:
                 Glide.with(viewHolder.itemView)
                         .load(R.drawable.bolt)
                         .into(viewHolder.imageViewSlider);

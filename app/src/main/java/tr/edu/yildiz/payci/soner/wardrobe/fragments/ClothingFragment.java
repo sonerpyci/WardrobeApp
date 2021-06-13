@@ -21,26 +21,23 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import tr.edu.yildiz.payci.soner.wardrobe.DrawerFormActivity;
+import tr.edu.yildiz.payci.soner.wardrobe.ClothingFormActivity;
 import tr.edu.yildiz.payci.soner.wardrobe.R;
-import tr.edu.yildiz.payci.soner.wardrobe.adapters.DrawerAdapter;
-import tr.edu.yildiz.payci.soner.wardrobe.entities.Drawer;
+import tr.edu.yildiz.payci.soner.wardrobe.adapters.ClothingAdapter;
+import tr.edu.yildiz.payci.soner.wardrobe.entities.Clothing;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WardrobeFragment extends Fragment {
+public class ClothingFragment extends Fragment {
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DrawerAdapter mAdapter;
+    private ClothingAdapter mAdapter;
     View rootLayout;
-    View newDrawerButton;
-    ArrayList<Drawer> drawers;
+    View newClothingButton;
+    ArrayList<Clothing> clothes;
 
 
-
-
-
-    public WardrobeFragment() {
+    public ClothingFragment() {
         // Required empty public constructor
     }
 
@@ -49,36 +46,41 @@ public class WardrobeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootLayout = inflater.inflate(R.layout.fragment_wardrobe, container, false);
+        rootLayout = inflater.inflate(R.layout.fragment_clothing, container, false);
 
         defineElements();
 
-        RecyclerView recyclerView = rootLayout.findViewById(R.id.recycler_view_drawers);
-        mAdapter = new DrawerAdapter(getContext(), drawers);
+        RecyclerView recyclerView = rootLayout.findViewById(R.id.recycler_view_clothes);
+        mAdapter = new ClothingAdapter(getContext(), clothes);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setHasFixedSize(true);
+
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(mAdapter);
+
+
 
         defineListeners();
         return rootLayout;
     }
 
     public void defineElements() {
-        newDrawerButton = rootLayout.findViewById(R.id.new_drawer_btn);
-        drawers = new ArrayList<>();
-        database.getReference().child("drawers").addValueEventListener(new ValueEventListener() {
+        newClothingButton = rootLayout.findViewById(R.id.new_clothing_btn);
+        clothes = new ArrayList<>();
+        database.getReference().child("clothes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Drawer drawer = postSnapshot.getValue(Drawer.class);
-                    drawers.add(drawer);
+                    Clothing clothing = postSnapshot.getValue(Clothing.class);
+                    clothes.add(clothing);
                 }
-                for (int i=0; i<drawers.size(); i++)
+                for (int i=0; i<clothes.size(); i++)
                 {
-                    Log.d("FirebaseRead", "Drawer with Name: " + drawers.get(i).getName());
+                    Log.d("FirebaseRead", "Drawer with Name: " + clothes.get(i).getName());
                 }
                 mAdapter.notifyDataSetChanged();
             }
@@ -88,12 +90,11 @@ public class WardrobeFragment extends Fragment {
                 Log.e("error",error.getMessage());
             }
         });
-
     }
 
     public void defineListeners() {
-        newDrawerButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), DrawerFormActivity.class);
+        newClothingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ClothingFormActivity.class);
             this.startActivity(intent);
         });
     }

@@ -29,11 +29,12 @@
             android:id="@+id/drawer_name_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tshirt Çekmecesi"
+            android:hint="Çekmece İsmi"
             android:padding="10dp"
             android:textSize="18sp"
             android:layout_centerInParent="true"
             android:textColorHint="@color/light_gray"
+            android:textColor="@color/darkGray"
             android:background="@drawable/text_input_line_selector"
             android:layout_toEndOf="@id/drawer_name_label"/>
 

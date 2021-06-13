@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1015294959143",
+    "firebase_url": "https://wardrobe-4c1df-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "wardrobe-4c1df",
+    "storage_bucket": "wardrobe-4c1df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015294959143:android:8d2eb46b67537212cc7802",
+        "android_client_info": {
+          "package_name": "tr.edu.yildiz.payci.soner.wardrobe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1015294959143-o5dm4fsgea499agccki79lvvs68l66o9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUQbXsryofTnKODs8R3na95sElNZJ9mlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1015294959143-o5dm4fsgea499agccki79lvvs68l66o9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
