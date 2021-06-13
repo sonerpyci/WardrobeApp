@@ -6,15 +6,14 @@ public class Combine implements Serializable {
 
     private String guid;
     private String name;
+    private boolean isSelected;
     private Clothing firstClothing;
     private Clothing secondClothing;
     private Clothing thirdClothing;
     private Clothing fourthClothing;
     private Clothing fifthClothing;
 
-    public Combine() {
-
-    }
+    public Combine() {}
 
     public Combine(String name) {
         this.name = name;
@@ -93,5 +92,13 @@ public class Combine implements Serializable {
 
     public void setFifthClothing(Clothing fifthClothing) {
         this.fifthClothing = fifthClothing;
+    }
+
+    public boolean getIsSelected() {
+        return isSelected;
+    }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
     }
 }

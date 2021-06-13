@@ -1,24 +1,47 @@
 package tr.edu.yildiz.payci.soner.wardrobe.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Event {
 
-    private int id;
+    private String guid;
     private String name;
-    private String content;
     private String type;
     private Date date;
     private Location location;
+    private ArrayList<Combine> combines;
 
+    public Event() {}
 
-    public Event() {
+    public Event(String guid, String name, String type, Date date, Location location, ArrayList<Combine> combines) {
+        this.guid = guid;
+        this.name = name;
+        this.type = type;
+        this.location = location;
+        this.date = date;
+        this.combines = combines;
+    }
+    public Event(String guid, String name, String type, Date date, Location location) {
+        this.guid = guid;
+        this.name = name;
+        this.type = type;
+        this.location = location;
+        this.date = date;
     }
 
-    public Event(int id, String name, String content, String type, Date date, Location location) {
-        this.id = id;
+    public Event(String name, String type, Date date, Location location, ArrayList<Combine> combines) {
+        this.guid = guid;
         this.name = name;
-        this.content = content;
+        this.type = type;
+        this.location = location;
+        this.date = date;
+        this.combines = combines;
+    }
+
+    public Event(String name, String type, Date date, Location location) {
+        this.guid = guid;
+        this.name = name;
         this.type = type;
         this.location = location;
         this.date = date;
@@ -32,12 +55,12 @@ public class Event {
         this.type = type;
     }
 
-    public int getId() {
-        return id;
+    public String getGuid() {
+        return guid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setGuid(String guid) {
+        this.guid = guid;
     }
 
     public String getName() {
@@ -46,14 +69,6 @@ public class Event {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public Date getDate() {
@@ -70,5 +85,13 @@ public class Event {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public ArrayList<Combine> getCombines() {
+        return combines;
+    }
+
+    public void setCombines(ArrayList<Combine> combines) {
+        this.combines = combines;
     }
 }

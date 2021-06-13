@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,24 +71,12 @@ public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.MyView
 
         holder.itemView.setBackgroundColor(item.isSelected() ? Color.CYAN : Color.WHITE);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.itemView.setOnClickListener(view -> {
+            if (fromActivity) {
 
-                Toast.makeText(v.getContext(), "clicked", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (fromActivity) {
-
-                } else {
-                    item.setSelected(!item.isSelected());
-                    holder.itemView.setBackgroundColor(item.isSelected() ? Color.CYAN : Color.WHITE);
-                }
+            } else {
+                item.setSelected(!item.isSelected());
+                holder.itemView.setBackgroundColor(item.isSelected() ? Color.CYAN : Color.WHITE);
             }
         });
 

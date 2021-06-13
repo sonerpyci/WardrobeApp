@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,32 +56,43 @@ public class CombineAdapter extends RecyclerView.Adapter<CombineAdapter.MyViewHo
         final Combine item = combines.get(position);
         holder.name.setText(item.getName());
 
+        holder.itemView.setBackgroundColor(item.getIsSelected() ? Color.CYAN : Color.WHITE);
+
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(holder.itemView.getContext(), CombineFormActivity.class);
-            intent.putExtra("combineGuid", item.getGuid());
-            holder.itemView.getContext().startActivity(intent);
+            if (fromActivity) {
+                Intent intent = new Intent(holder.itemView.getContext(), CombineFormActivity.class);
+                intent.putExtra("combineGuid", item.getGuid());
+                holder.itemView.getContext().startActivity(intent);
+            } else {
+                item.setIsSelected(!item.getIsSelected());
+                holder.itemView.setBackgroundColor(item.getIsSelected() ? Color.CYAN : Color.WHITE);
+            }
+
         });
 
         holder.itemView.setOnLongClickListener(v -> {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-            builder.setTitle("Dikkat")
-                    .setMessage("Lütfen Uygulamak istediğiniz işlemi seçiniz.")
-                    .setNeutralButton("Geri", (dialog, which) -> {
+            if (fromActivity) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Dikkat")
+                        .setMessage("Lütfen Uygulamak istediğiniz işlemi seçiniz.")
+                        .setNeutralButton("Geri", (dialog, which) -> {
 
-                    })
-                    .setNegativeButton("Sil", (dialog, which) -> {
-                        // TODO : SURE TO DELETE COMBINE ?
-                        final AlertDialog.Builder builder2 = new AlertDialog.Builder(builder.getContext());
-                        builder2.setTitle("Kombin Silme İşlemi")
-                                .setMessage("Kombini silmek istediğinize emin misiniz?")
-                                .setNeutralButton("Hayır", (dialog1, which1) -> {
+                        })
+                        .setNegativeButton("Sil", (dialog, which) -> {
+                            // TODO : SURE TO DELETE COMBINE ?
+                            final AlertDialog.Builder builder2 = new AlertDialog.Builder(builder.getContext());
+                            builder2.setTitle("Kombin Silme İşlemi")
+                                    .setMessage("Kombini silmek istediğinize emin misiniz?")
+                                    .setNeutralButton("Hayır", (dialog1, which1) -> {
 
-                                }).setPositiveButton("Evet", (dialog12, which12) -> {
-                                    //TODO : DELETE COMBINE
-                                    database.getReference().child("combines").child(item.getGuid()).removeValue();
-                                }).show();
-                    });
-            builder.create().show();
+                                    }).setPositiveButton("Evet", (dialog12, which12) -> {
+                                //TODO : DELETE COMBINE
+                                database.getReference().child("combines").child(item.getGuid()).removeValue();
+                            }).show();
+                        });
+                builder.create().show();
+            }
+
             return true;
         });
     }
@@ -94,6 +106,15 @@ public class CombineAdapter extends RecyclerView.Adapter<CombineAdapter.MyViewHo
         return (ArrayList<Combine>) combines;
     }
 
+    public ArrayList<Combine> getSelectedItems() {
+        ArrayList<Combine> selectedCombines = new ArrayList<>();
+        for (Combine combine: getItems()) {
+            if (combine.getIsSelected()) {
+                selectedCombines.add(combine);
+            }
+        }
+        return selectedCombines;
+    }
 
     public void empty() {
         combines = new ArrayList<>();
