@@ -65,7 +65,7 @@ public class ClothingFormActivity extends AppCompatActivity {
         saveClothingButton = this.findViewById(R.id.save_clothing_btn);
         clothingTypeSpinner = this.findViewById(R.id.clothing_type_spinner);
 
-        String[] items = new String[]{"Baş", "Üstlük İç", "Üstlük Dış", "Altlık", "Ayakkabı"};
+        String[] items = new String[]{"Başüstü", "Surat", "Üst Beden", "Alt beden", "Ayak"};
         ArrayAdapter<String> clothingTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         clothingTypeSpinner.setAdapter(clothingTypeAdapter);
 

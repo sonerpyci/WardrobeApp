@@ -85,7 +85,7 @@ public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.MyView
             @Override
             public void onClick(View view) {
                 if (fromActivity) {
-                   
+
                 } else {
                     item.setSelected(!item.isSelected());
                     holder.itemView.setBackgroundColor(item.isSelected() ? Color.CYAN : Color.WHITE);
@@ -148,6 +148,23 @@ public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.MyView
     public ArrayList<Clothing> getItems() {
         return clothes;
     }
+
+    public Clothing getItemByGuid(String guid) {
+        for (Clothing clothing : clothes) {
+            if (clothing.getGuid() == guid)
+                return clothing;
+        }
+        return null;
+    }
+
+    public ArrayList<String> getItemGuids() {
+        ArrayList<String> clothingGuids = new ArrayList<>();
+        for (Clothing clothing:clothes) {
+            clothingGuids.add(clothing.getGuid());
+        }
+        return clothingGuids;
+    }
+
     public ArrayList<Clothing> getSelectedItems() {
         ArrayList<Clothing> selectedClothes = new ArrayList<>();
         for (Clothing clothing: getItems()) {

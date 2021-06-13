@@ -49,27 +49,28 @@
                         android:layout_marginBottom="5dp">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/head_image"
+                            android:id="@+id/first_image"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="20dp"
                             android:layout_marginBottom="10dp"
                             android:elevation="4dp"
-                            android:src="@drawable/user_man"
+
                             app:layout_anchorGravity="top|center_horizontal"
                             app:layout_scrollFlags="scroll" />
                     </LinearLayout>
 
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <Spinner
+                        android:id="@+id/clothing_first_spinner"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Baş Aksesuarları Şapka vs"
-                        android:textColor="@color/md_grey_400"
-                        android:gravity="center"
-                        android:textSize="12sp" />
+                        android:background="@android:drawable/btn_dropdown"
+                        android:spinnerMode="dropdown"
+                        android:padding="10dp"
+                        android:textSize="12sp"
+                        android:textColorHint="@color/light_gray"
+                        android:textColor="@color/colorPrimary" />
 
                 </LinearLayout>
 
@@ -97,13 +98,13 @@
                         android:background="@drawable/circle_gray_selector"
                         android:layout_marginBottom="5dp">
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/top_inner_image"
+                            android:id="@+id/second_image"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginBottom="10dp"
                             android:layout_marginTop="20dp"
-                            android:src="@drawable/user_man"
+
                             android:elevation="4dp"
                             app:layout_scrollFlags="scroll"
                             app:layout_anchorGravity="top|center_horizontal"/>
@@ -111,13 +112,16 @@
 
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <Spinner
+                        android:id="@+id/clothing_second_spinner"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="İç üstlük / Tshirt vs"
-                        android:gravity="center"
-                        android:textColor="@color/md_grey_400"
-                        android:textSize="12sp" />
+                        android:background="@android:drawable/btn_dropdown"
+                        android:spinnerMode="dropdown"
+                        android:padding="10dp"
+                        android:textSize="12sp"
+                        android:textColorHint="@color/light_gray"
+                        android:textColor="@color/colorPrimary" />
 
                 </LinearLayout>
 
@@ -140,27 +144,30 @@
                         android:layout_marginBottom="5dp">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/bottom_image"
+                            android:id="@+id/third_image"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="20dp"
                             android:layout_marginBottom="10dp"
                             android:elevation="4dp"
-                            android:src="@drawable/user_man"
+
                             app:layout_anchorGravity="top|center_horizontal"
                             app:layout_scrollFlags="scroll" />
                     </LinearLayout>
 
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <Spinner
+                        android:id="@+id/clothing_third_spinner"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Altlık / Pantolon - Etek vs"
-                        android:textColor="@color/md_grey_400"
-                        android:gravity="center"
-                        android:textSize="12sp" />
+                        android:background="@android:drawable/btn_dropdown"
+                        android:spinnerMode="dropdown"
+                        android:padding="10dp"
+                        android:textSize="12sp"
+                        android:textColorHint="@color/light_gray"
+                        android:textColor="@color/colorPrimary" />
 
                 </LinearLayout>
 
@@ -178,13 +185,13 @@
                         android:background="@drawable/circle_gray_selector"
                         android:layout_marginBottom="5dp">
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/top_outer_image"
+                            android:id="@+id/fourth_image"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginBottom="10dp"
                             android:layout_marginTop="20dp"
-                            android:src="@drawable/user_man"
+
                             android:elevation="4dp"
                             app:layout_scrollFlags="scroll"
                             app:layout_anchorGravity="top|center_horizontal"/>
@@ -192,14 +199,16 @@
 
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <Spinner
+                        android:id="@+id/clothing_forth_spinner"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Dış Üstlük / Mont vs."
-                        android:gravity="center"
-                        android:textColor="@color/md_grey_400"
-                        android:maxLines="2"
-                        android:textSize="12sp" />
+                        android:background="@android:drawable/btn_dropdown"
+                        android:spinnerMode="dropdown"
+                        android:padding="10dp"
+                        android:textSize="12sp"
+                        android:textColorHint="@color/light_gray"
+                        android:textColor="@color/colorPrimary" />
 
                 </LinearLayout>
 
@@ -229,43 +238,73 @@
                         android:layout_marginBottom="5dp">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/foot_image"
+                            android:id="@+id/fifth_image"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="20dp"
                             android:layout_marginBottom="10dp"
                             android:elevation="4dp"
-                            android:src="@drawable/user_man"
+
                             app:layout_anchorGravity="top|center_horizontal"
                             app:layout_scrollFlags="scroll" />
                     </LinearLayout>
 
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <Spinner
+                        android:id="@+id/clothing_fifth_spinner"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Ayakkabı / Sandalet"
-                        android:textColor="@color/md_grey_400"
-                        android:gravity="center"
-                        android:maxLines="2"
-                        android:textSize="12sp" />
-
+                        android:background="@android:drawable/btn_dropdown"
+                        android:spinnerMode="dropdown"
+                        android:padding="10dp"
+                        android:textSize="12sp"
+                        android:textColorHint="@color/light_gray"
+                        android:textColor="@color/colorPrimary" />
                 </LinearLayout>
-
             </RelativeLayout>
 
         </LinearLayout>
 
-
     </com.github.florent37.shapeofview.shapes.ArcView>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/clothing_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="@color/darkGray"
+            android:text="Kombin İsmi  : "
+            android:layout_marginEnd="10dp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/combine_name_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="En Güzel Kombin"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:textColorHint="@color/light_gray"
+            android:textColor="@color/darkGray"
+            android:background="@drawable/text_input_line_selector"
+            android:layout_toEndOf="@id/clothing_price_label"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="top|center_horizontal"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:weightSum="30">
 
