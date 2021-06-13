@@ -11,6 +11,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Wardrobe"
         tools:ignore="HardcodedDebugMode">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <!-- resource file to create -->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths">
+            </meta-data>
+        </provider>
         <activity android:name=".ClothingFormActivity"></activity>
         <activity android:name=".CombineFormActivity" />
         <activity android:name=".DrawerFormActivity" />

@@ -24,6 +24,7 @@ import tr.edu.yildiz.payci.soner.wardrobe.entities.Combine;
 public class CombineAdapter extends RecyclerView.Adapter<CombineAdapter.MyViewHolder> {
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private Context context;
+    public boolean fromActivity = false;
     private List<Combine> combines;
 
     class MyViewHolder extends RecyclerView.ViewHolder {

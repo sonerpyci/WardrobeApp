@@ -151,7 +151,7 @@ public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.MyView
 
     public Clothing getItemByGuid(String guid) {
         for (Clothing clothing : clothes) {
-            if (clothing.getGuid() == guid)
+            if (clothing.getGuid().equals(guid))
                 return clothing;
         }
         return null;

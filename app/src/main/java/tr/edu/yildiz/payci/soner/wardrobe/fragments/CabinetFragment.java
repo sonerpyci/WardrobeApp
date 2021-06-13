@@ -52,7 +52,7 @@ public class CabinetFragment extends Fragment {
 
         RecyclerView recyclerView = rootLayout.findViewById(R.id.recycler_view_combines);
         mAdapter = new CombineAdapter(getContext(), combines);
-
+        mAdapter.fromActivity = true;
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -100,9 +100,8 @@ public class CabinetFragment extends Fragment {
             this.startActivity(intent);
         });
 
-        shareCombineButton.setOnClickListener(v -> {
-            // TODO : Fill the listener func.
-        });
     }
+
+
 
 }

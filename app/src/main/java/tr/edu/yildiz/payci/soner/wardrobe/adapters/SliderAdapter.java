@@ -82,7 +82,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
     @Override
     public int getCount() {
         //slider view count could be dynamic size
-        return 4;
+        return 5;
     }
 
     class SliderAdapterVH extends SliderViewAdapter.ViewHolder {

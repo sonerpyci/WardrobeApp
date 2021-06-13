@@ -96,35 +96,64 @@ public class DrawerFormActivity extends AppCompatActivity {
             });
 
         } else {
-            database.getReference().child("drawers").child(drawerGuid).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (mAdapter.getItemCount() > 0) {
-                        clothes = new ArrayList<>();
-                        mAdapter.empty();
-                    }
-                    if (dataSnapshot.getValue() != null) {
-                        drawer = dataSnapshot.getValue(Drawer.class);
-                        drawerNameTxtElement.setText(drawer.getName());
-                        for (Clothing clothing : drawer.getClothes()) {
-                            mAdapter.addItem(clothing);
-                        }
 
+            FirebaseDatabase.getInstance()
+                    .getReference("clothes").get().continueWith(task -> {
+                if (task.isCanceled()) {
+                    // Handle the error...
+                }
+                else if (task.isComplete()) {
+                    DataSnapshot clothesSnapshot = task.getResult();
+                    for (DataSnapshot postSnapshot : clothesSnapshot.getChildren()) {
+                        Clothing clothing = postSnapshot.getValue(Clothing.class);
+                        mAdapter.addItem(clothing);
                     }
-
-                    for (int i=0; i<clothes.size(); i++)
-                    {
-                        Log.d("FirebaseRead", "Drawer with Name: " + clothes.get(i).getName());
+                    for (int i = 0; i < clothes.size(); i++) {
+                        Log.d("FirebaseRead", "Combine with Name: " + clothes.get(i).getName());
                     }
                     clothes = mAdapter.getItems();
                     mAdapter.notifyDataSetChanged();
+
+                    database.getReference().child("drawers").child(drawerGuid).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() != null) {
+                                drawer = dataSnapshot.getValue(Drawer.class);
+                                drawerNameTxtElement.setText(drawer.getName());
+                                for (Clothing clothing : mAdapter.getItems()) {
+                                    for (Clothing drawerClothing : drawer.getClothes()) {
+                                        if (drawerClothing.getGuid().equals(clothing.getGuid())) {
+                                            clothing.setSelected(true);
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            for (int i=0; i<clothes.size(); i++)
+                            {
+                                Log.d("FirebaseRead", "Drawer with Name: " + clothes.get(i).getName());
+                            }
+                            clothes = mAdapter.getItems();
+                            mAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            Log.e("error",error.getMessage());
+                        }
+                    });
+
+
+
+
+
                 }
 
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    Log.e("error",error.getMessage());
-                }
+                return task;
             });
+
+
 
         }
 

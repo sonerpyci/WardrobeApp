@@ -1,6 +1,8 @@
 package tr.edu.yildiz.payci.soner.wardrobe.entities;
 
-public class Combine {
+import java.io.Serializable;
+
+public class Combine implements Serializable {
 
     private String guid;
     private String name;
