@@ -60,6 +60,7 @@ public class ClothingFragment extends Fragment {
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mAdapter.fromActivity=true;
         recyclerView.setAdapter(mAdapter);
 
 

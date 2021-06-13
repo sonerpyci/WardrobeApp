@@ -49,6 +49,7 @@ public class DrawerFormActivity extends AppCompatActivity {
         recyclerView.setClickable(true);
         recyclerView.setFocusable(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+        mAdapter.fromActivity=false;
         recyclerView.setAdapter(mAdapter);
 
 
@@ -132,8 +133,6 @@ public class DrawerFormActivity extends AppCompatActivity {
 
     public void defineListeners(){
         saveDrawerButton.setOnClickListener(v -> {
-
-
             String drawerName = drawerNameTxtElement.getText().toString();
 
             if (drawer == null) {

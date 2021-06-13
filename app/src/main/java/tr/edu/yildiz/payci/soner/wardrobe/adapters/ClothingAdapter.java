@@ -1,6 +1,7 @@
 package tr.edu.yildiz.payci.soner.wardrobe.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
@@ -29,6 +31,8 @@ import tr.edu.yildiz.payci.soner.wardrobe.entities.Clothing;
 public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<Clothing> clothes;
+    public boolean fromActivity = false;
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name, content;
@@ -80,12 +84,40 @@ public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.MyView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), String.format("clicked successfully."), Toast.LENGTH_SHORT).show();
-                item.setSelected(!item.isSelected());
-                holder.itemView.setBackgroundColor(item.isSelected() ? Color.CYAN : Color.WHITE);
+                if (fromActivity) {
+                   
+                } else {
+                    item.setSelected(!item.isSelected());
+                    holder.itemView.setBackgroundColor(item.isSelected() ? Color.CYAN : Color.WHITE);
+                }
             }
         });
 
+        holder.itemView.setOnLongClickListener(v -> {
+            if (fromActivity) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Dikkat")
+                        .setMessage("Lütfen Uygulamak istediğiniz işlemi seçiniz.")
+                        .setNeutralButton("Geri", (dialog, which) -> {
+
+                        })
+                        .setNegativeButton("Sil", (dialog, which) -> {
+                            // TODO : SURE TO DELETE CLOTHING ?
+                            final AlertDialog.Builder builder2 = new AlertDialog.Builder(builder.getContext());
+                            builder2.setTitle("Kıyafet Silme İşlemi")
+                                    .setMessage("Kıyafeti silmek istediğinize emin misiniz?")
+                                    .setNeutralButton("Hayır", (dialog1, which1) -> {
+
+                                    }).setPositiveButton("Evet", (dialog12, which12) -> {
+                                //TODO : DELETE CLOTHING
+                                database.getReference().child("clothes").child(item.getGuid()).removeValue();
+                            }).show();
+                        });
+                builder.create().show();
+            }
+
+            return true;
+        });
         if (item.getPhoto() != null) {
 
             StorageReference ref = StorageHelper.getStorageEngine().getReference("photos").child(item.getPhoto().getUid());
