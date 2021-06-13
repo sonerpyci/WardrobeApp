@@ -1,11 +1,12 @@
 package tr.edu.yildiz.payci.soner.wardrobe;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Base64;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,17 +15,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.UUID;
 
+import tr.edu.yildiz.payci.soner.wardrobe.dal.StorageHelper;
 import tr.edu.yildiz.payci.soner.wardrobe.entities.Clothing;
 import tr.edu.yildiz.payci.soner.wardrobe.entities.Photo;
-import tr.edu.yildiz.payci.soner.wardrobe.helpers.IOStream;
 import tr.edu.yildiz.payci.soner.wardrobe.helpers.Utilizer;
 
 public class ClothingFormActivity extends AppCompatActivity {
@@ -36,8 +43,9 @@ public class ClothingFormActivity extends AppCompatActivity {
     TextView clothingPriceTxtElement;
     Spinner clothingTypeSpinner;
     Spinner clothingColorSpinner;
-    byte[] selectedImageByteArray;
-
+    Uri selectedImageFilePath;
+    String selectedImageUid;
+    Photo clothingPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +63,6 @@ public class ClothingFormActivity extends AppCompatActivity {
     public void defineElements() {
         imageHolder = this.findViewById(R.id.clothing_image_holder);
         saveClothingButton = this.findViewById(R.id.save_clothing_btn);
-        selectedImageByteArray = new byte[] {};
-
         clothingTypeSpinner = this.findViewById(R.id.clothing_type_spinner);
 
         String[] items = new String[]{"Baş", "Üstlük İç", "Üstlük Dış", "Altlık", "Ayakkabı"};
@@ -94,11 +100,60 @@ public class ClothingFormActivity extends AppCompatActivity {
             String clothingColor = clothingColorSpinner.getSelectedItem().toString();
             double clothingPrice = Utilizer.ParseDouble(String.valueOf(clothingPriceTxtElement.getText()));
 
-            byte[] base64PhotoArray = Base64.encode(selectedImageByteArray, selectedImageByteArray.length);
-            String base64PhotoContent = new String(base64PhotoArray);
-            Photo clothingPhoto = new Photo(base64PhotoContent);
 
-            Clothing clothing = new Clothing(clothingName, clothingType, clothingColor, clothingPrice, clothingPhoto);
+            if (selectedImageFilePath != null) {
+                // upload image on firebase and get url
+                selectedImageUid = UUID.randomUUID().toString();
+                StorageReference ref = StorageHelper.getStorageEngine().getReference("photos").child(selectedImageUid);
+
+
+                final ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setTitle("Uploading...");
+                progressDialog.show();
+
+
+                ref.putFile(selectedImageFilePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            Toast.makeText(ClothingFormActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            try {
+                                progressDialog.dismiss();
+                            } catch (Exception e1) {
+
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ClothingFormActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            try {
+                                progressDialog.dismiss();
+                            } catch (Exception e2) {
+
+                            }
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                        }
+                    });
+
+                clothingPhoto = new Photo(selectedImageUid);
+            }
+
+            Clothing clothing;
+            if (clothingPhoto != null) {
+                clothing = new Clothing(clothingName, clothingType, clothingColor, clothingPrice, clothingPhoto);
+            } else {
+                clothing = new Clothing(clothingName, clothingType, clothingColor, clothingPrice);
+            }
 
             DatabaseReference ref = database.getReference().child("clothes").push();
             clothing.setGuid(ref.getKey());
@@ -124,12 +179,12 @@ public class ClothingFormActivity extends AppCompatActivity {
             }
             try {
 
-                InputStream inputStream = this.getContentResolver().openInputStream(data.getData());
-                selectedImageByteArray = IOStream.readAllBytes(inputStream);
+                Uri filePath = data.getData();
 
-                Bitmap bmp = BitmapFactory.decodeByteArray(selectedImageByteArray, 0, selectedImageByteArray.length);
+                Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 ImageView image = (ImageView) findViewById(R.id.clothing_image_holder);
                 image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(), image.getHeight(), false));
+                selectedImageFilePath = filePath;
 
             } catch (IOException e) {
                 Toast.makeText(ClothingFormActivity.this, "Sistem Belirtilen Dosyayı Bulamıyor.", Toast.LENGTH_SHORT).show();

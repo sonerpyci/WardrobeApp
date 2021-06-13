@@ -39,6 +39,7 @@ public class ClothingFragment extends Fragment {
 
     public ClothingFragment() {
         // Required empty public constructor
+
     }
 
 
@@ -58,7 +59,6 @@ public class ClothingFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
-
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
@@ -74,14 +74,22 @@ public class ClothingFragment extends Fragment {
         database.getReference().child("clothes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if (mAdapter.getItemCount() > 0) {
+                    clothes = new ArrayList<>();
+                    mAdapter.empty();
+                }
+
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Clothing clothing = postSnapshot.getValue(Clothing.class);
-                    clothes.add(clothing);
+                    mAdapter.addItem(clothing);
+
+
                 }
                 for (int i=0; i<clothes.size(); i++)
                 {
                     Log.d("FirebaseRead", "Drawer with Name: " + clothes.get(i).getName());
                 }
+                clothes = mAdapter.getItems();
                 mAdapter.notifyDataSetChanged();
             }
 

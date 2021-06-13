@@ -1,19 +1,19 @@
 package tr.edu.yildiz.payci.soner.wardrobe.entities;
 
 public class Photo {
-    private String base64EncodedContent;
+    private String uid;
 
     public Photo() {}
 
-    public Photo(String base64EncodedContent) {
-        this.base64EncodedContent = base64EncodedContent;
+    public Photo(String uid) {
+        this.uid = uid;
     }
 
-    public String getBase64EncodedContent() {
-        return base64EncodedContent;
+    public String getUid() {
+        return uid;
     }
 
-    public void setBase64EncodedContent(String base64EncodedContent) {
-        this.base64EncodedContent = base64EncodedContent;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

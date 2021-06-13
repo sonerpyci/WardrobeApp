@@ -18,7 +18,7 @@ public class Clothing {
         this.photo = photo;
     }
 
-    public Clothing(String type, String color, String name, double price, Photo photo) {
+    public Clothing(String name, String type, String color, double price, Photo photo) {
         this.type = type;
         this.color = color;
         this.name = name;

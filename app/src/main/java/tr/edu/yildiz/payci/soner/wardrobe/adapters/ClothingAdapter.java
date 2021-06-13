@@ -2,26 +2,31 @@ package tr.edu.yildiz.payci.soner.wardrobe.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 import tr.edu.yildiz.payci.soner.wardrobe.R;
+import tr.edu.yildiz.payci.soner.wardrobe.dal.StorageHelper;
 import tr.edu.yildiz.payci.soner.wardrobe.entities.Clothing;
 
 
 public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.MyViewHolder> {
     private Context context;
-    private List<Clothing> clothes;
+    private ArrayList<Clothing> clothes;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name, content;
@@ -35,7 +40,7 @@ public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.MyView
         }
     }
 
-    public ClothingAdapter(Context context, List<Clothing> clothes) {
+    public ClothingAdapter(Context context, ArrayList<Clothing> clothes) {
         this.context = context;
         this.clothes = clothes;
     }
@@ -59,10 +64,24 @@ public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.MyView
             holder.content.setText(String.format("%s bölgesi için. Ücret Bilgisi yok.", item.getType()));
         }
 
+        if (item.getPhoto() != null) {
 
-        byte[] imageBytes = Base64.decode(item.getPhoto().getBase64EncodedContent(), Base64.NO_WRAP);
-        Bitmap bmp = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-        holder.image.setImageBitmap(Bitmap.createScaledBitmap(bmp, holder.image.getWidth(), holder.image.getHeight(), false));
+            StorageReference ref = StorageHelper.getStorageEngine().getReference("photos").child(item.getPhoto().getUid());
+            // Load the image using Glide
+            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    String imageURL = uri.toString();
+                    Glide.with(holder.itemView.getContext()).load(imageURL).into(holder.image);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
+        }
+
 
     }
 
@@ -70,6 +89,18 @@ public class ClothingAdapter extends RecyclerView.Adapter<ClothingAdapter.MyView
     @Override
     public int getItemCount() {
         return clothes.size();
+    }
+
+    public ArrayList<Clothing> getItems() {
+        return clothes;
+    }
+
+    public void empty() {
+        clothes = new ArrayList<>();
+    }
+
+    public void addItem(Clothing clothing) {
+        clothes.add(clothing);
     }
 
 }
